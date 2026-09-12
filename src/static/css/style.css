@@ -1,0 +1,1237 @@
+/* =========================================================
+   BAR DO JAUM — GLOBAL STYLES
+   ========================================================= */
+
+:root {
+  --paper: #f4ead8;
+  --paper-deep: #e8d7bb;
+
+  --ink: #2d241d;
+
+  --wood-dark: #3b2618;
+  --wood-mid: #65432c;
+
+  --amber: #d99a32;
+  --amber-deep: #b87816;
+
+  --teal: #287c72;
+  --bottle: #31594c;
+
+  --rust: #a74d32;
+
+  --muted: #796d60;
+
+  --card-bg: #fffaf0;
+
+  --line: rgba(72, 50, 32, 0.16);
+}
+
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+
+  color: var(--ink);
+  background: var(--paper);
+
+  font-family:
+    "IBM Plex Sans",
+    sans-serif;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.font-display {
+  font-family:
+    "Fraunces",
+    serif;
+}
+
+
+/* =========================================================
+   GRAIN / PAPER TEXTURE
+   ========================================================= */
+
+.grain {
+  position: relative;
+}
+
+.grain::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+  z-index: 9999;
+
+  opacity: 0.035;
+
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+
+  mix-blend-mode: multiply;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header-wrap {
+  position: relative;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--wood-dark),
+      var(--wood-mid)
+    );
+
+  color: #fffaf0;
+
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.header-wrap::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--amber),
+      #f0bb55,
+      var(--amber-deep)
+    );
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.brand-mark {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  color: var(--wood-dark);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--amber),
+      #f0bb55
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 4px 10px rgba(0, 0, 0, 0.18);
+
+  font-family:
+    "Fraunces",
+    serif;
+
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.brand-mark span {
+  transform: rotate(-4deg);
+}
+
+
+/* =========================================================
+   HEADER DIVIDER
+   ========================================================= */
+
+.header-divider {
+  width: 1px;
+  height: 28px;
+
+  background: rgba(255, 255, 255, 0.22);
+}
+
+
+/* =========================================================
+   CONNECTION STATUS
+   ========================================================= */
+
+.pulse-dot {
+  width: 9px;
+  height: 9px;
+
+  display: inline-block;
+
+  border-radius: 999px;
+
+  background: var(--rust);
+
+  box-shadow:
+    0 0 0 0 rgba(167, 77, 50, 0.35);
+}
+
+.pulse-dot.connected {
+  background: #59b7a7;
+
+  animation:
+    connection-pulse 2s infinite;
+}
+
+@keyframes connection-pulse {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(89, 183, 167, 0.35);
+  }
+
+  70% {
+    box-shadow:
+      0 0 0 7px rgba(89, 183, 167, 0);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(89, 183, 167, 0);
+  }
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-height: 40px;
+
+  padding: 9px 14px;
+
+  border-radius: 10px;
+
+  border: 1px solid transparent;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+
+/* Primary */
+
+.btn-primary {
+  color: #fffaf0;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--amber-deep),
+      var(--amber)
+    );
+
+  border-color: var(--amber-deep);
+
+  box-shadow:
+    0 3px 8px rgba(120, 75, 17, 0.18);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow:
+    0 5px 12px rgba(120, 75, 17, 0.25);
+}
+
+
+/* Ghost */
+
+.btn-ghost {
+  color: inherit;
+
+  background: transparent;
+
+  border-color: var(--line);
+}
+
+.header-wrap .btn-ghost {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.header-wrap .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+
+/* Card */
+
+.btn-card {
+  min-height: 36px;
+
+  padding: 7px 10px;
+
+  color: var(--ink);
+
+  background: var(--paper);
+
+  border-color: var(--line);
+
+  font-size: 12px;
+}
+
+.btn-card:hover:not(:disabled) {
+  background: var(--paper-deep);
+}
+
+
+/* Card primary */
+
+.btn-card-primary {
+  min-height: 36px;
+
+  padding: 7px 10px;
+
+  color: #fffaf0;
+
+  background: var(--teal);
+
+  border-color: var(--teal);
+
+  font-size: 12px;
+}
+
+.btn-card-primary:hover:not(:disabled) {
+  background: var(--bottle);
+}
+
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+.tab-button {
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-height: 54px;
+
+  padding: 0 16px;
+
+  color: var(--muted);
+
+  background: transparent;
+
+  border: 0;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.tab-button:hover {
+  color: var(--ink);
+
+  background:
+    rgba(232, 215, 187, 0.32);
+}
+
+.tab-button.active {
+  color: var(--wood-dark);
+}
+
+.tab-button.active::after {
+  content: "";
+
+  position: absolute;
+
+  left: 12px;
+  right: 12px;
+  bottom: 0;
+
+  height: 3px;
+
+  border-radius:
+    3px 3px 0 0;
+
+  background: var(--amber);
+}
+
+.tab-button.active #ordersCount,
+.tab-button.active span {
+  color: inherit;
+}
+
+
+/* =========================================================
+   STATUS PILL
+   ========================================================= */
+
+.status-pill {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  color: var(--teal);
+
+  background:
+    rgba(40, 124, 114, 0.09);
+
+  border:
+    1px solid rgba(40, 124, 114, 0.16);
+
+  font-size: 11px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   ORDERS
+   ========================================================= */
+
+.orders-main {
+  min-height:
+    calc(100dvh - 130px);
+}
+
+.orders-board {
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, minmax(230px, 1fr));
+
+  gap: 14px;
+
+  align-items: start;
+
+  overflow-x: auto;
+
+  padding-bottom: 12px;
+}
+
+
+/* =========================================================
+   ORDER COLUMN
+   ========================================================= */
+
+.order-column {
+  min-width: 230px;
+
+  min-height: 430px;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  background:
+    rgba(255, 250, 240, 0.65);
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 14px;
+}
+
+.order-column-header {
+  padding: 14px;
+
+  border-bottom:
+    1px solid var(--line);
+
+  background:
+    rgba(232, 215, 187, 0.28);
+}
+
+.order-column-body {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  padding: 10px;
+}
+
+
+/* =========================================================
+   STATUS ICON
+   ========================================================= */
+
+.status-icon {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 9px;
+
+  color: var(--amber-deep);
+
+  background:
+    rgba(217, 154, 50, 0.13);
+}
+
+
+/* =========================================================
+   ORDER CARD
+   ========================================================= */
+
+.order-card {
+  padding: 13px;
+
+  background: var(--card-bg);
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 2px 5px rgba(55, 37, 22, 0.04);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+
+  border-color:
+    rgba(120, 75, 17, 0.25);
+
+  box-shadow:
+    0 7px 18px rgba(55, 37, 22, 0.08);
+}
+
+
+/* =========================================================
+   ORDER STATUS BADGE
+   ========================================================= */
+
+.order-status-badge {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  padding: 4px 7px;
+
+  border-radius: 999px;
+
+  color: var(--wood-dark);
+
+  background:
+    rgba(217, 154, 50, 0.12);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   EMPTY COLUMN
+   ========================================================= */
+
+.empty-column {
+  flex: 1;
+
+  min-height: 120px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   ORDER DETAILS
+   ========================================================= */
+
+.details-section-title {
+  margin: 0 0 10px;
+
+  color: var(--wood-dark);
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.details-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 12px;
+}
+
+.details-grid > div {
+  padding: 12px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 10px;
+
+  background:
+    rgba(232, 215, 187, 0.2);
+}
+
+.details-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+.details-value {
+  display: block;
+
+  color: var(--ink);
+
+  font-size: 14px;
+  font-weight: 500;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 100;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(30, 20, 13, 0.55);
+
+  backdrop-filter:
+    blur(3px);
+
+  animation:
+    modal-fade-in 0.18s ease;
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   SIMULATOR
+   ========================================================= */
+
+.simulator-main {
+  height:
+    calc(100dvh - 130px);
+}
+
+.simulator-grid {
+  height: 100%;
+
+  min-height: 0;
+}
+
+.simulator-card {
+  height: 100%;
+
+  min-height: 0;
+
+  overflow: hidden;
+
+  background: var(--card-bg);
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 3px 12px rgba(55, 37, 22, 0.05);
+}
+
+.simulator-messages {
+  min-height: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(244, 234, 216, 0.32),
+      rgba(255, 250, 240, 0.5)
+    );
+}
+
+
+/* =========================================================
+   SIMULATOR MESSAGES
+   ========================================================= */
+
+.simulator-message {
+  display: flex;
+
+  margin-bottom: 12px;
+}
+
+.simulator-message-user {
+  justify-content: flex-end;
+}
+
+.simulator-message-bot {
+  justify-content: flex-start;
+}
+
+.simulator-message-bubble {
+  max-width: min(78%, 680px);
+
+  padding: 10px 13px;
+
+  border-radius: 14px;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  word-break: break-word;
+
+  box-shadow:
+    0 2px 5px rgba(55, 37, 22, 0.04);
+
+  animation:
+    bubble-in 0.18s ease;
+}
+
+.simulator-message-user
+.simulator-message-bubble {
+  color: #fffaf0;
+
+  background:
+    var(--teal);
+
+  border-bottom-right-radius: 4px;
+}
+
+.simulator-message-bot
+.simulator-message-bubble {
+  color: var(--ink);
+
+  background:
+    var(--paper-deep);
+
+  border-bottom-left-radius: 4px;
+}
+
+@keyframes bubble-in {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+
+/* =========================================================
+   DEBUG PANEL
+   ========================================================= */
+
+.debug-panel {
+  height: 100%;
+
+  min-height: 0;
+
+  overflow-y: auto;
+
+  padding: 18px;
+
+  background:
+    var(--wood-dark);
+
+  color: #f9efdf;
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 3px 12px rgba(55, 37, 22, 0.08);
+}
+
+.debug-panel .text-\[var\(--muted\)\] {
+  color: rgba(249, 239, 223, 0.58);
+}
+
+.debug-field {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  min-height: 40px;
+
+  padding: 9px 11px;
+
+  overflow: hidden;
+
+  color: #f9efdf;
+
+  background:
+    rgba(255, 255, 255, 0.055);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 9px;
+
+  font-family:
+    "IBM Plex Sans",
+    sans-serif;
+
+  font-size: 12px;
+}
+
+.debug-code {
+  width: 100%;
+
+  min-height: 80px;
+  max-height: 190px;
+
+  margin: 0;
+
+  padding: 11px;
+
+  overflow: auto;
+
+  color: #f9efdf;
+
+  background:
+    rgba(0, 0, 0, 0.22);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 9px;
+
+  font-family:
+    "IBM Plex Mono",
+    "Courier New",
+    monospace;
+
+  font-size: 11px;
+
+  line-height: 1.55;
+
+  white-space: pre-wrap;
+
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   SETTINGS DRAWER
+   ========================================================= */
+
+#settingsOverlay {
+  animation:
+    modal-fade-in 0.18s ease;
+}
+
+#settingsOverlay aside {
+  animation:
+    drawer-slide-in 0.22s ease;
+}
+
+@keyframes drawer-slide-in {
+  from {
+    transform:
+      translateX(100%);
+  }
+
+  to {
+    transform:
+      translateX(0);
+  }
+}
+
+
+/* =========================================================
+   TICKET / DECORATIVE ELEMENTS
+   ========================================================= */
+
+.ticket {
+  position: relative;
+}
+
+.ticket::before,
+.ticket::after {
+  content: "";
+
+  position: absolute;
+
+  width: 12px;
+  height: 12px;
+
+  background: var(--paper);
+
+  border-radius: 50%;
+}
+
+.ticket::before {
+  left: -7px;
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+}
+
+.ticket::after {
+  right: -7px;
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+}
+
+.perf {
+  border-bottom:
+    1px dashed var(--line);
+}
+
+
+/* =========================================================
+   SCROLLBARS
+   ========================================================= */
+
+* {
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    rgba(121, 109, 96, 0.35)
+    transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background:
+    rgba(121, 109, 96, 0.35);
+
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background:
+    rgba(121, 109, 96, 0.55);
+}
+
+
+/* =========================================================
+   FOCUS
+   ========================================================= */
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--amber);
+
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   SELECTION
+   ========================================================= */
+
+::selection {
+  background: var(--amber);
+
+  color: var(--wood-dark);
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 1280px) {
+  .orders-board {
+    grid-template-columns:
+      repeat(5, minmax(215px, 1fr));
+  }
+
+  .simulator-grid {
+    grid-template-columns:
+      minmax(0, 1fr) 360px;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .brand-mark {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+  }
+
+  .header-wrap h1 {
+    font-size: 1.35rem;
+  }
+
+  .tab-button {
+    min-height: 50px;
+
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .orders-board {
+    grid-template-columns:
+      repeat(5, minmax(260px, 1fr));
+  }
+
+  .orders-main {
+    min-height:
+      calc(100dvh - 126px);
+  }
+
+  .simulator-main {
+    height:
+      auto;
+
+    min-height:
+      calc(100dvh - 126px);
+  }
+
+  .simulator-grid {
+    height: auto;
+
+    grid-template-columns:
+      1fr;
+  }
+
+  .simulator-card {
+    height:
+      65dvh;
+
+    min-height: 500px;
+  }
+
+  .debug-panel {
+    height: auto;
+
+    max-height: none;
+  }
+
+  .simulator-message-bubble {
+    max-width: 88%;
+  }
+
+  .details-grid {
+    grid-template-columns:
+      1fr;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .header-wrap h1 {
+    font-size: 1.2rem;
+  }
+
+  .header-wrap p {
+    font-size: 9px;
+  }
+
+  .tab-button {
+    gap: 6px;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    font-size: 12px;
+  }
+
+  .btn {
+    font-size: 12px;
+  }
+
+  .orders-board {
+    grid-template-columns:
+      repeat(5, minmax(245px, 1fr));
+  }
+
+  .simulator-card {
+    min-height: 460px;
+  }
+}
+
+
+/* =========================================================
+   UTILITY ANIMATION
+   ========================================================= */
+
+.animate-spin {
+  animation:
+    spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform:
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   HIDDEN
+   ========================================================= */
+
+.hidden {
+  display: none !important;
+}

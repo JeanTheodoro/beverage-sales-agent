@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>Bar do Jaum — Administração</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Application CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', path='css/style.css') }}"
+    />
+</head>
+
+
+<body class="grain min-h-screen">
+
+
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
+
+    <header class="header-wrap">
+
+        <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="flex items-center justify-between h-[76px]">
+
+                <!-- Brand -->
+                <div class="flex items-center gap-4">
+
+                    <div class="brand-mark">
+                        <span>BJ</span>
+                    </div>
+
+                    <div>
+
+                        <h1 class="font-display text-2xl sm:text-3xl font-semibold leading-none">
+                            Bar do Jaum
+                        </h1>
+
+                        <p class="text-xs uppercase tracking-[0.18em] mt-1 opacity-70">
+                            Administração
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Header Actions -->
+                <div class="flex items-center gap-3 sm:gap-5">
+
+                    <div class="flex items-center gap-2">
+
+                        <span
+                            id="connectionDot"
+                            class="pulse-dot"
+                        ></span>
+
+                        <span
+                            id="connectionText"
+                            class="hidden sm:inline text-sm font-medium"
+                        >
+                            Conectando...
+                        </span>
+
+                    </div>
+
+
+                    <div class="header-divider"></div>
+
+
+                    <button
+                        id="settingsButton"
+                        type="button"
+                        class="btn btn-ghost"
+                        aria-label="Abrir configurações"
+                        title="Configurações"
+                    >
+
+                        <i
+                            data-lucide="settings"
+                            class="w-5 h-5"
+                        ></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         NAVIGATION
+         ========================================================= -->
+
+    <nav class="border-b border-[var(--line)]">
+
+        <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="flex items-center gap-1 overflow-x-auto">
+
+                <!-- Pedidos -->
+                <button
+                    id="ordersTabButton"
+                    type="button"
+                    class="tab-button active"
+                >
+
+                    <i
+                        data-lucide="clipboard-list"
+                        class="w-4 h-4"
+                    ></i>
+
+                    <span>Pedidos</span>
+
+                    <span
+                        id="ordersCount"
+                        class="ml-1 inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full text-[11px] font-bold"
+                    >
+                        0
+                    </span>
+
+                </button>
+
+
+                <!-- Simulador -->
+                <button
+                    id="simulatorTabButton"
+                    type="button"
+                    class="tab-button"
+                >
+
+                    <i
+                        data-lucide="message-circle"
+                        class="w-4 h-4"
+                    ></i>
+
+                    <span>Simulador</span>
+
+                </button>
+
+
+                <!-- Administrativo -->
+                <button
+                    id="adminTabButton"
+                    type="button"
+                    class="tab-button"
+                >
+
+                    <i
+                        data-lucide="bar-chart-3"
+                        class="w-4 h-4"
+                    ></i>
+
+                    <span>Administrativo</span>
+
+                </button>
+
+                <button
+                    id="messagesTabButton"
+                    type="button"
+                    class="tab-button"
+                >
+                    <i
+                        data-lucide="messages-square"
+                        class="w-4 h-4"
+                    ></i>
+
+                    <span>
+                        Mensagens
+                    </span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================================================
+         MAIN
+         ========================================================= -->
+
+    <main>
+
+
+        <!-- =====================================================
+             ORDERS
+             ===================================================== -->
+
+        <section
+            id="ordersView"
+            class="orders-main"
+        >
+
+            <div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+
+                    <div>
+
+                        <div class="flex items-center gap-3">
+
+                            <h2 class="font-display text-2xl sm:text-3xl font-semibold">
+                                Pedidos
+                            </h2>
+
+                            <span class="status-pill">
+
+                                <span
+                                    class="w-2 h-2 rounded-full bg-[var(--teal)]"
+                                ></span>
+
+                                Ao vivo
+
+                            </span>
+
+                        </div>
+
+                        <p class="text-sm text-[var(--muted)] mt-1">
+                            Acompanhe e atualize os pedidos em tempo real.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        id="refreshOrdersButton"
+                        type="button"
+                        class="btn btn-primary"
+                    >
+
+                        <i
+                            data-lucide="refresh-cw"
+                            class="w-4 h-4"
+                        ></i>
+
+                        <span>Atualizar</span>
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="ordersBoard"
+                    class="orders-board"
+                >
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             SIMULATOR
+             ===================================================== -->
+
+        <section
+            id="simulatorView"
+            class="simulator-main hidden"
+        >
+
+            <div
+                class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-6 h-full"
+            >
+
+                <div
+                    class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 mb-5"
+                >
+
+                    <div>
+
+                        <div class="flex items-center gap-3">
+
+                            <h2 class="font-display text-2xl sm:text-3xl font-semibold">
+                                Simulador
+                            </h2>
+
+                            <span class="status-pill">
+                                WhatsApp
+                            </span>
+
+                        </div>
+
+                        <p class="text-sm text-[var(--muted)] mt-1">
+                            Simule mensagens recebidas pelo atendimento do Bar do Jaum.
+                        </p>
+
+                    </div>
+
+
+                    <div class="w-full lg:w-80">
+
+                        <label
+                            for="simulatorPhone"
+                            class="block text-xs font-semibold uppercase tracking-wider text-[var(--muted)] mb-2"
+                        >
+                            Telefone da conversa
+                        </label>
+
+                        <div class="relative">
+
+                            <i
+                                data-lucide="phone"
+                                class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted)]"
+                            ></i>
+
+                            <input
+                                id="simulatorPhone"
+                                type="tel"
+                                inputmode="numeric"
+                                autocomplete="off"
+                                placeholder="(16) 99999-9999"
+                                class="w-full rounded-xl border border-[var(--line)] bg-[var(--card-bg)] pl-10 pr-4 py-3 text-sm outline-none transition focus:border-[var(--amber)]"
+                            />
+
+                        </div>
+
+                        <p
+                            id="simulatorPhoneHint"
+                            class="text-[11px] text-[var(--muted)] mt-1.5"
+                        >
+                            Informe o telefone para iniciar a conversa.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="simulator-grid grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_420px] gap-5"
+                >
+
+                    <!-- CHAT -->
+                    <div class="simulator-card flex flex-col">
+
+                        <div
+                            id="simulatorMessages"
+                            class="simulator-messages flex-1 overflow-y-auto p-4 sm:p-6"
+                        >
+
+                            <div
+                                id="simulatorEmptyState"
+                                class="h-full flex flex-col items-center justify-center text-center px-6"
+                            >
+
+                                <div
+                                    class="w-14 h-14 rounded-full bg-[var(--paper-deep)] flex items-center justify-center mb-4"
+                                >
+
+                                    <i
+                                        data-lucide="message-square"
+                                        class="w-6 h-6 text-[var(--muted)]"
+                                    ></i>
+
+                                </div>
+
+                                <h3 class="font-display text-xl font-semibold">
+                                    Nenhuma mensagem
+                                </h3>
+
+                                <p class="text-sm text-[var(--muted)] mt-2 max-w-sm">
+                                    Digite uma mensagem abaixo para simular uma conversa com o agente.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="border-t border-[var(--line)] p-4">
+
+                            <div class="flex items-end gap-3">
+
+                                <div class="flex-1">
+
+                                    <textarea
+                                        id="simulatorInput"
+                                        rows="2"
+                                        placeholder="Digite uma mensagem..."
+                                        class="w-full resize-none rounded-xl border border-[var(--line)] bg-[var(--card-bg)] px-4 py-3 text-sm outline-none transition focus:border-[var(--amber)]"
+                                    ></textarea>
+
+                                    <div class="text-[11px] text-[var(--muted)] mt-1.5 px-1">
+                                        Enter para enviar · Shift + Enter para nova linha
+                                    </div>
+
+                                </div>
+
+
+                                <button
+                                    id="sendSimulatorButton"
+                                    type="button"
+                                    class="btn btn-primary h-[50px] px-5"
+                                >
+
+                                    <i
+                                        data-lucide="send"
+                                        class="w-4 h-4"
+                                    ></i>
+
+                                    <span class="hidden sm:inline">
+                                        Enviar
+                                    </span>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DEBUG -->
+                    <aside class="debug-panel">
+
+                        <div class="flex items-center justify-between mb-5">
+
+                            <div>
+
+                                <h3 class="font-display text-xl font-semibold">
+                                    Debug
+                                </h3>
+
+                                <p class="text-xs text-[var(--muted)] mt-1">
+                                    Informações da requisição
+                                </p>
+
+                            </div>
+
+                            <i
+                                data-lucide="terminal"
+                                class="w-5 h-5 text-[var(--muted)]"
+                            ></i>
+
+                        </div>
+
+
+                        <div class="mb-4">
+
+                            <label
+                                for="simulatorEndpoint"
+                                class="block text-xs font-semibold uppercase tracking-wider text-[var(--muted)] mb-2"
+                            >
+                                Endpoint
+                            </label>
+
+                            <div class="debug-field">
+
+                                <span class="text-[var(--amber)]">
+                                    POST
+                                </span>
+
+                                <span
+                                    id="simulatorEndpoint"
+                                    class="break-all"
+                                >
+                                    /whatsapp/webhook
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="mb-4">
+
+                            <label
+                                class="block text-xs font-semibold uppercase tracking-wider text-[var(--muted)] mb-2"
+                            >
+                                HTTP Status
+                            </label>
+
+                            <div
+                                id="simulatorHttpStatus"
+                                class="debug-field"
+                            >
+                                —
+                            </div>
+
+                        </div>
+
+
+                        <div class="mb-4">
+
+                            <label
+                                for="simulatorRequest"
+                                class="block text-xs font-semibold uppercase tracking-wider text-[var(--muted)] mb-2"
+                            >
+                                Request
+                            </label>
+
+                            <pre
+                                id="simulatorRequest"
+                                class="debug-code"
+                            >—</pre>
+
+                        </div>
+
+
+                        <div class="mb-5">
+
+                            <label
+                                for="simulatorResponse"
+                                class="block text-xs font-semibold uppercase tracking-wider text-[var(--muted)] mb-2"
+                            >
+                                Response
+                            </label>
+
+                            <pre
+                                id="simulatorResponse"
+                                class="debug-code"
+                            >—</pre>
+
+                        </div>
+
+
+                        <button
+                            id="clearSimulatorButton"
+                            type="button"
+                            class="btn btn-ghost w-full"
+                        >
+
+                            <i
+                                data-lucide="trash-2"
+                                class="w-4 h-4"
+                            ></i>
+
+                            <span>
+                                Limpar simulador
+                            </span>
+
+                        </button>
+
+                    </aside>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ADMINISTRATIVE
+             ===================================================== -->
+
+        <section
+            id="adminView"
+            class="hidden"
+        >
+
+            <div
+                class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-6"
+            >
+
+                <div
+                    class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 mb-6"
+                >
+
+                    <div>
+
+                        <div class="flex items-center gap-3">
+
+                            <h2 class="font-display text-2xl sm:text-3xl font-semibold">
+                                Administrativo
+                            </h2>
+
+                            <span class="status-pill">
+
+                                <span
+                                    class="w-2 h-2 rounded-full bg-[var(--teal)]"
+                                ></span>
+
+                                Indicadores
+
+                            </span>
+
+                        </div>
+
+                        <p class="text-sm text-[var(--muted)] mt-1">
+                            Acompanhe o desempenho de vendas do Bar do Jaum.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        id="refreshAdminButton"
+                        type="button"
+                        class="btn btn-primary"
+                    >
+
+                        <i
+                            data-lucide="refresh-cw"
+                            class="w-4 h-4"
+                        ></i>
+
+                        <span>Atualizar</span>
+
+                    </button>
+
+                </div>
+
+
+                <!-- FILTER -->
+                <div
+                    class="rounded-2xl border border-[var(--line)] bg-[var(--card-bg)] p-4 sm:p-5 mb-6"
+                >
+
+                    <div
+                        class="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-5"
+                    >
+
+                        <div
+                            class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full xl:max-w-2xl"
+                        >
+
+                            <div>
+
+                                <label
+                                    for="adminStartDate"
+                                    class="block text-xs font-semibold uppercase tracking-wider text-[var(--muted)] mb-2"
+                                >
+                                    Data inicial
+                                </label>
+
+                                <div class="relative">
+
+                                    <i
+                                        data-lucide="calendar-days"
+                                        class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted)]"
+                                    ></i>
+
+                                    <input
+                                        id="adminStartDate"
+                                        type="date"
+                                        class="w-full rounded-xl border border-[var(--line)] bg-[var(--paper)] pl-10 pr-4 py-3 text-sm outline-none transition focus:border-[var(--amber)]"
+                                    />
+
+                                </div>
+
+                            </div>
+
+
+                            <div>
+
+                                <label
+                                    for="adminEndDate"
+                                    class="block text-xs font-semibold uppercase tracking-wider text-[var(--muted)] mb-2"
+                                >
+                                    Data final
+                                </label>
+
+                                <div class="relative">
+
+                                    <i
+                                        data-lucide="calendar-check"
+                                        class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted)]"
+                                    ></i>
+
+                                    <input
+                                        id="adminEndDate"
+                                        type="date"
+                                        class="w-full rounded-xl border border-[var(--line)] bg-[var(--paper)] pl-10 pr-4 py-3 text-sm outline-none transition focus:border-[var(--amber)]"
+                                    />
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div>
+
+                            <p class="block text-xs font-semibold uppercase tracking-wider text-[var(--muted)] mb-2">
+                                Período rápido
+                            </p>
+
+                            <div class="flex flex-wrap gap-2">
+
+                                <button
+                                    id="adminTodayButton"
+                                    type="button"
+                                    class="btn btn-ghost"
+                                >
+                                    Hoje
+                                </button>
+
+                                <button
+                                    id="adminSevenDaysButton"
+                                    type="button"
+                                    class="btn btn-ghost"
+                                >
+                                    7 dias
+                                </button>
+
+                                <button
+                                    id="adminThirtyDaysButton"
+                                    type="button"
+                                    class="btn btn-ghost"
+                                >
+                                    30 dias
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="flex items-center gap-2 mt-4 pt-4 border-t border-[var(--line)]"
+                    >
+
+                        <i
+                            data-lucide="calendar-range"
+                            class="w-4 h-4 text-[var(--amber)]"
+                        ></i>
+
+                        <span
+                            id="adminPeriodLabel"
+                            class="text-xs text-[var(--muted)]"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOADING -->
+                <div
+                    id="adminLoading"
+                    class="hidden rounded-2xl border border-[var(--line)] bg-[var(--card-bg)] p-10 mb-6"
+                >
+
+                    <div class="flex flex-col items-center justify-center text-center">
+
+                        <div
+                            class="w-10 h-10 rounded-full border-2 border-[var(--line)] border-t-[var(--amber)] animate-spin mb-4"
+                        ></div>
+
+                        <h3 class="font-display text-lg font-semibold">
+                            Carregando indicadores
+                        </h3>
+
+                        <p class="text-sm text-[var(--muted)] mt-1">
+                            Consultando os dados de vendas...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ERROR -->
+                <div
+                    id="adminError"
+                    class="hidden rounded-2xl border border-red-500/20 bg-red-500/5 p-5 mb-6"
+                >
+
+                    <div class="flex items-start gap-3">
+
+                        <i
+                            data-lucide="circle-alert"
+                            class="w-5 h-5 text-red-500 mt-0.5 shrink-0"
+                        ></i>
+
+                        <div>
+
+                            <h3 class="font-semibold">
+                                Não foi possível carregar os indicadores
+                            </h3>
+
+                            <p
+                                id="adminErrorMessage"
+                                class="text-sm text-[var(--muted)] mt-1"
+                            >
+                                —
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DASHBOARD -->
+                <div id="adminDashboardContent">
+
+
+                    <!-- KPI -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+
+                        <div
+                            class="rounded-2xl border border-[var(--line)] bg-[var(--card-bg)] p-5"
+                        >
+
+                            <div class="flex items-start justify-between gap-4">
+
+                                <div>
+
+                                    <p class="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+                                        Total de pedidos
+                                    </p>
+
+                                    <p
+                                        id="adminTotalOrders"
+                                        class="font-display text-3xl sm:text-4xl font-semibold mt-3"
+                                    >
+                                        0
+                                    </p>
+
+                                    <p class="text-xs text-[var(--muted)] mt-2">
+                                        Pedidos no período selecionado
+                                    </p>
+
+                                </div>
+
+                                <div
+                                    class="w-11 h-11 rounded-xl bg-[var(--paper-deep)] flex items-center justify-center"
+                                >
+
+                                    <i
+                                        data-lucide="shopping-bag"
+                                        class="w-5 h-5 text-[var(--amber)]"
+                                    ></i>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="rounded-2xl border border-[var(--line)] bg-[var(--card-bg)] p-5"
+                        >
+
+                            <div class="flex items-start justify-between gap-4">
+
+                                <div>
+
+                                    <p class="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+                                        Faturamento
+                                    </p>
+
+                                    <p
+                                        id="adminTotalRevenue"
+                                        class="font-display text-3xl sm:text-4xl font-semibold mt-3"
+                                    >
+                                        R$ 0,00
+                                    </p>
+
+                                    <p class="text-xs text-[var(--muted)] mt-2">
+                                        Receita total no período
+                                    </p>
+
+                                </div>
+
+                                <div
+                                    class="w-11 h-11 rounded-xl bg-[var(--paper-deep)] flex items-center justify-center"
+                                >
+
+                                    <i
+                                        data-lucide="banknote"
+                                        class="w-5 h-5 text-[var(--amber)]"
+                                    ></i>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="rounded-2xl border border-[var(--line)] bg-[var(--card-bg)] p-5"
+                        >
+
+                            <div class="flex items-start justify-between gap-4">
+
+                                <div>
+
+                                    <p class="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+                                        Ticket médio
+                                    </p>
+
+                                    <p
+                                        id="adminAverageTicket"
+                                        class="font-display text-3xl sm:text-4xl font-semibold mt-3"
+                                    >
+                                        R$ 0,00
+                                    </p>
+
+                                    <p class="text-xs text-[var(--muted)] mt-2">
+                                        Valor médio por pedido
+                                    </p>
+
+                                </div>
+
+                                <div
+                                    class="w-11 h-11 rounded-xl bg-[var(--paper-deep)] flex items-center justify-center"
+                                >
+
+                                    <i
+                                        data-lucide="receipt"
+                                        class="w-5 h-5 text-[var(--amber)]"
+                                    ></i>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TOP PRODUCTS -->
+                    <div
+                        class="rounded-2xl border border-[var(--line)] bg-[var(--card-bg)] overflow-hidden mb-6"
+                    >
+
+                        <div
+                            class="px-5 sm:px-6 py-5 border-b border-[var(--line)]"
+                        >
+
+                            <div class="flex items-center justify-between gap-4">
+
+                                <div>
+
+                                    <div class="flex items-center gap-3">
+
+                                        <h3 class="font-display text-xl sm:text-2xl font-semibold">
+                                            Produtos mais vendidos
+                                        </h3>
+
+                                        <span
+                                            id="adminTopProductsCount"
+                                            class="status-pill"
+                                        >
+                                            0 produtos
+                                        </span>
+
+                                    </div>
+
+                                    <p class="text-xs text-[var(--muted)] mt-1">
+                                        Ranking de produtos por quantidade vendida.
+                                    </p>
+
+                                </div>
+
+                                <i
+                                    data-lucide="trophy"
+                                    class="w-5 h-5 text-[var(--amber)] shrink-0"
+                                ></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="hidden md:block overflow-x-auto">
+
+                            <table class="w-full text-sm">
+
+                                <thead>
+
+                                    <tr class="border-b border-[var(--line)]">
+
+                                        <th class="text-left px-5 sm:px-6 py-3 text-xs uppercase tracking-wider text-[var(--muted)] font-semibold">
+                                            Produto
+                                        </th>
+
+                                        <th class="text-left px-5 py-3 text-xs uppercase tracking-wider text-[var(--muted)] font-semibold">
+                                            Categoria
+                                        </th>
+
+                                        <th class="text-left px-5 py-3 text-xs uppercase tracking-wider text-[var(--muted)] font-semibold">
+                                            Volume
+                                        </th>
+
+                                        <th class="text-right px-5 py-3 text-xs uppercase tracking-wider text-[var(--muted)] font-semibold">
+                                            Quantidade
+                                        </th>
+
+                                        <th class="text-right px-5 sm:px-6 py-3 text-xs uppercase tracking-wider text-[var(--muted)] font-semibold">
+                                            Receita
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="adminProductsTableBody">
+
+                                    <tr>
+
+                                        <td
+                                            colspan="5"
+                                            class="px-6 py-10 text-center text-sm text-[var(--muted)]"
+                                        >
+                                            Nenhum produto encontrado.
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+
+                        <div
+                            id="adminProductsMobile"
+                            class="md:hidden divide-y divide-[var(--line)]"
+                        >
+
+                            <div class="px-5 py-8 text-center text-sm text-[var(--muted)]">
+                                Nenhum produto encontrado.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CHARTS -->
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-5">
+
+                        <div
+                            class="rounded-2xl border border-[var(--line)] bg-[var(--card-bg)] p-5 sm:p-6"
+                        >
+
+                            <div class="flex items-start justify-between gap-4 mb-6">
+
+                                <div>
+
+                                    <h3 class="font-display text-xl font-semibold">
+                                        Quantidade vendida
+                                    </h3>
+
+                                    <p class="text-xs text-[var(--muted)] mt-1">
+                                        Produtos com maior volume de vendas.
+                                    </p>
+
+                                </div>
+
+                                <i
+                                    data-lucide="package"
+                                    class="w-5 h-5 text-[var(--muted)]"
+                                ></i>
+
+                            </div>
+
+                            <div
+                                id="adminQuantityChart"
+                                class="space-y-5"
+                            >
+
+                                <div class="text-sm text-[var(--muted)]">
+                                    Nenhum dado disponível.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="rounded-2xl border border-[var(--line)] bg-[var(--card-bg)] p-5 sm:p-6"
+                        >
+
+                            <div class="flex items-start justify-between gap-4 mb-6">
+
+                                <div>
+
+                                    <h3 class="font-display text-xl font-semibold">
+                                        Receita por produto
+                                    </h3>
+
+                                    <p class="text-xs text-[var(--muted)] mt-1">
+                                        Produtos que mais geraram receita.
+                                    </p>
+
+                                </div>
+
+                                <i
+                                    data-lucide="chart-column"
+                                    class="w-5 h-5 text-[var(--muted)]"
+                                ></i>
+
+                            </div>
+
+                            <div
+                                id="adminRevenueChart"
+                                class="space-y-5"
+                            >
+
+                                <div class="text-sm text-[var(--muted)]">
+                                    Nenhum dado disponível.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="flex items-center justify-end gap-2 mt-4"
+                    >
+
+                        <i
+                            data-lucide="clock-3"
+                            class="w-3.5 h-3.5 text-[var(--muted)]"
+                        ></i>
+
+                        <span
+                            id="adminLastUpdate"
+                            class="text-[11px] text-[var(--muted)]"
+                        >
+                            —
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section
+            id="messagesView"
+            class="hidden"
+        >
+            <div class="space-y-6">
+
+                <div
+                    class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4"
+                >
+
+                    <div>
+
+                        <div class="section-kicker">
+                            Conversas
+                        </div>
+
+                        <h2 class="section-title">
+                            Mensagens dos pedidos
+                        </h2>
+
+                        <p class="text-sm text-[var(--muted)] mt-2">
+                            Consulte as conversas entre clientes e o agente.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        id="refreshMessagesButton"
+                        type="button"
+                        class="btn btn-primary"
+                    >
+
+                        <i
+                            data-lucide="refresh-cw"
+                            class="w-4 h-4"
+                        ></i>
+
+                        Atualizar
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="rounded-2xl border border-[var(--line)] bg-[var(--paper)] p-4"
+                >
+
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-3 gap-4"
+                    >
+
+                        <div>
+
+                            <label
+                                for="messagesStartDate"
+                                class="block text-xs font-medium mb-2"
+                            >
+                                Data inicial
+                            </label>
+
+                            <input
+                                id="messagesStartDate"
+                                type="date"
+                                class="input w-full"
+                            >
+
+                        </div>
+
+
+                        <div>
+
+                            <label
+                                for="messagesEndDate"
+                                class="block text-xs font-medium mb-2"
+                            >
+                                Data final
+                            </label>
+
+                            <input
+                                id="messagesEndDate"
+                                type="date"
+                                class="input w-full"
+                            >
+
+                        </div>
+
+
+                       
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="messagesError"
+                    class="hidden rounded-xl border border-[var(--rust)] p-4"
+                >
+
+                    <div class="flex items-center gap-3">
+
+                        <i
+                            data-lucide="circle-alert"
+                            class="w-5 h-5"
+                        ></i>
+
+                        <span
+                            id="messagesErrorMessage"
+                            class="text-sm"
+                        ></span>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="messagesLoading"
+                    class="hidden flex items-center justify-center py-12"
+                >
+
+                    <i
+                        data-lucide="loader-circle"
+                        class="w-7 h-7 animate-spin"
+                    ></i>
+
+                    <span class="ml-3 text-sm text-[var(--muted)]">
+                        Carregando mensagens...
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="rounded-2xl border border-[var(--line)] overflow-hidden"
+                >
+
+                    <div class="overflow-x-auto">
+
+                        <table class="w-full text-left">
+
+                            <thead
+                                class="bg-[var(--paper-deep)]"
+                            >
+
+                                <tr>
+
+                                    <th class="px-4 py-3 text-xs uppercase tracking-wider">
+                                        Pedido
+                                    </th>
+
+                                    <th class="px-4 py-3 text-xs uppercase tracking-wider">
+                                        Telefone
+                                    </th>
+
+                                    <th class="px-4 py-3 text-xs uppercase tracking-wider">
+                                        Mensagens
+                                    </th>
+
+                                    <th class="px-4 py-3 text-xs uppercase tracking-wider text-right">
+                                        Ação
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody
+                                id="messagesTableBody"
+                            ></tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div
+                        id="messagesEmpty"
+                        class="hidden flex flex-col items-center justify-center py-16 text-center"
+                    >
+
+                        <i
+                            data-lucide="message-square-off"
+                            class="w-8 h-8 text-[var(--muted)]"
+                        ></i>
+
+                        <h3 class="font-semibold mt-3">
+                            Nenhuma conversa encontrada
+                        </h3>
+
+                        <p class="text-sm text-[var(--muted)] mt-1">
+                            Não existem mensagens no período selecionado.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+</section>
+
+    </main>
+
+
+    <!-- =========================================================
+         ORDER MODAL
+         ========================================================= -->
+
+    <div
+        id="orderModal"
+        class="modal-backdrop hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalOrderTitle"
+    >
+
+        <div class="w-full max-w-2xl px-4">
+
+            <div
+                class="bg-[var(--card-bg)] rounded-2xl shadow-2xl overflow-hidden"
+            >
+
+                <div
+                    class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-[var(--line)]"
+                >
+
+                    <div>
+
+                        <p class="text-xs uppercase tracking-[0.16em] text-[var(--muted)]">
+                            Detalhes do pedido
+                        </p>
+
+                        <h2
+                            id="modalOrderTitle"
+                            class="font-display text-2xl font-semibold mt-1"
+                        >
+                            Pedido
+                        </h2>
+
+                    </div>
+
+
+                    <button
+                        id="closeOrderModalButton"
+                        type="button"
+                        class="btn btn-ghost"
+                        aria-label="Fechar"
+                    >
+
+                        <i
+                            data-lucide="x"
+                            class="w-5 h-5"
+                        ></i>
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="modalOrderContent"
+                    class="p-5 sm:p-6 max-h-[70vh] overflow-y-auto"
+                >
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         CONVERSATION MODAL
+         ========================================================= -->
+
+    <div
+        id="conversationModal"
+        class="modal-backdrop hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="conversationModalTitle"
+    >
+
+        <div class="w-full max-w-3xl px-4">
+
+            <div
+                class="bg-[var(--card-bg)] rounded-2xl shadow-2xl overflow-hidden"
+            >
+
+                <div
+                    class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-[var(--line)]"
+                >
+
+                    <div>
+
+                        <p class="text-xs uppercase tracking-[0.16em] text-[var(--muted)]">
+                            Histórico
+                        </p>
+
+                        <h2
+                            id="conversationModalTitle"
+                            class="font-display text-2xl font-semibold mt-1"
+                        >
+                            Conversa
+                        </h2>
+
+                    </div>
+
+
+                    <button
+                        id="closeConversationModalButton"
+                        type="button"
+                        class="btn btn-ghost"
+                        aria-label="Fechar conversa"
+                    >
+
+                        <i
+                            data-lucide="x"
+                            class="w-5 h-5"
+                        ></i>
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="conversationModalContent"
+                    class="p-5 sm:p-6 max-h-[70vh] overflow-y-auto"
+                >
+
+                    <div class="flex items-center justify-center py-10">
+
+                        <div class="text-sm text-[var(--muted)]">
+                            Carregando conversa...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         SETTINGS
+         ========================================================= -->
+
+    <div
+        id="settingsOverlay"
+        class="fixed inset-0 z-50 hidden"
+    >
+
+        <div
+            id="settingsBackdrop"
+            class="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        ></div>
+
+
+        <aside
+            class="absolute right-0 top-0 h-full w-full max-w-md bg-[var(--card-bg)] shadow-2xl flex flex-col"
+        >
+
+            <div
+                class="flex items-center justify-between px-5 sm:px-6 py-5 border-b border-[var(--line)]"
+            >
+
+                <div>
+
+                    <p class="text-xs uppercase tracking-[0.16em] text-[var(--muted)]">
+                        Configurações
+                    </p>
+
+                    <h2 class="font-display text-2xl font-semibold mt-1">
+                        Bar do Jaum
+                    </h2>
+
+                </div>
+
+
+                <button
+                    id="closeSettingsButton"
+                    type="button"
+                    class="btn btn-ghost"
+                    aria-label="Fechar configurações"
+                >
+
+                    <i
+                        data-lucide="x"
+                        class="w-5 h-5"
+                    ></i>
+
+                </button>
+
+            </div>
+
+
+            <div class="flex-1 overflow-y-auto p-5 sm:p-6">
+
+                <div class="mb-6">
+
+                    <label
+                        for="apiBaseInput"
+                        class="block text-sm font-semibold mb-2"
+                    >
+                        URL base da API
+                    </label>
+
+                    <input
+                        id="apiBaseInput"
+                        type="text"
+                        placeholder="Ex.: http://127.0.0.1:8000"
+                        class="w-full rounded-xl border border-[var(--line)] bg-[var(--paper)] px-4 py-3 text-sm outline-none transition focus:border-[var(--amber)]"
+                    />
+
+                    <p class="text-xs text-[var(--muted)] mt-2">
+                        Deixe vazio quando o frontend e a API estiverem no mesmo domínio.
+                    </p>
+
+                </div>
+
+
+                <div class="mb-6">
+
+                    <div class="flex items-center justify-between gap-4">
+
+                        <div>
+
+                            <label
+                                for="autoRefreshInput"
+                                class="block text-sm font-semibold"
+                            >
+                                Atualização automática
+                            </label>
+
+                            <p class="text-xs text-[var(--muted)] mt-1">
+                                Intervalo para buscar novos pedidos.
+                            </p>
+
+                        </div>
+
+
+                        <div class="flex items-center gap-2">
+
+                            <input
+                                id="autoRefreshInput"
+                                type="number"
+                                min="1000"
+                                step="1000"
+                                class="w-28 rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3 py-2.5 text-sm text-center outline-none transition focus:border-[var(--amber)]"
+                            />
+
+                            <span class="text-xs text-[var(--muted)]">
+                                ms
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="rounded-xl border border-[var(--line)] bg-[var(--paper)] p-4"
+                >
+
+                    <div class="flex items-start gap-3">
+
+                        <i
+                            data-lucide="info"
+                            class="w-5 h-5 text-[var(--amber)] mt-0.5 shrink-0"
+                        ></i>
+
+                        <div>
+
+                            <h3 class="text-sm font-semibold">
+                                Sobre a configuração
+                            </h3>
+
+                            <p
+                                class="text-xs leading-relaxed text-[var(--muted)] mt-1.5"
+                            >
+                                As configurações são armazenadas neste navegador e aplicadas
+                                automaticamente ao painel.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="border-t border-[var(--line)] p-5 sm:p-6"
+            >
+
+                <button
+                    id="saveSettingsButton"
+                    type="button"
+                    class="btn btn-primary w-full"
+                >
+
+                    <i
+                        data-lucide="save"
+                        class="w-4 h-4"
+                    ></i>
+
+                    <span>
+                        Salvar configurações
+                    </span>
+
+                </button>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+
+    <!-- =========================================================
+         APPLICATION JAVASCRIPT
+         ========================================================= -->
+
+    <script src="{{ url_for('static', path='js/app.js') }}"></script>
+
+</body>
+
+</html>
