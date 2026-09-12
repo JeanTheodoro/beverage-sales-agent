@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+
+  redis:
+    image: redis:7-alpine
+    container_name: bar_do_jaum_redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  api:
+    build: .
+    container_name: bar_do_jaum_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - ./src/.env
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  worker:
+    build: .
+    container_name: bar_do_jaum_worker
+    command: python -m celery -A core.config.celery_app.celery_app worker --beat --loglevel=info
+    volumes:
+      - .:/app
+    env_file:
+      - ./src/.env
+    depends_on:
+      - redis
+    restart: unless-stopped
